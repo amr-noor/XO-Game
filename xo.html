@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XO</title>
+    <meta name="description" content="(Tic Tac Toe) XO Game" />
+    <style>
+        body {
+            background: aliceblue;
+            & .body {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        .container {
+            height: 180px;
+            width: 180px;
+            display: flex;
+            flex-wrap: wrap;
+            margin-block: 20px;
+            & div {
+                background-color: cadetblue;
+                width: 50px;
+                height: 50px;
+                margin: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                font-family: sans-serif;
+                &:hover {
+                    opacity: 0.7;
+                }
+                &:first-child {
+                    border-top-left-radius: 10px;
+                }
+                &:nth-child(3) {
+                    border-top-right-radius: 10px;
+                }
+                &:nth-child(7) {
+                    border-bottom-left-radius: 10px;
+                }
+                &:last-child {
+                    border-bottom-right-radius: 10px;
+                }
+            }
+        }
+        .reload {
+            cursor: pointer;
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            font-size: 30px;
+            background-color: darkseagreen;
+            border-radius: 50%;
+            padding: 4px 4px 0 7px;
+            &:hover {
+                transition: 0.5s;
+                transform: rotate(360deg);
+            }
+        }
+        .rules {
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 10px;
+            width: fit-content;
+            & .icon {
+                padding-inline: 6px;
+                border: 1px solid black;
+                border-radius: 50%;
+            }
+            & .msg {
+                display: none;
+                margin-left: 10px;
+            }
+            &:hover .msg {
+                display: inline;
+            }
+        }
+
+        .common {
+            width: 140px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+        }
+        .player {
+            display: none;
+        }
+        .toggle {
+            display: inline;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="body">
+        <span class="common">
+            <span>Player Round : </span>
+            <span style="color: blue;" class="player">O</span>
+            <span style="color: red;" class="player toggle">X</span>
+        </span>
+        <div class="container">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="winner common">Winner Is : <span style="font-weight: bold;">No Body</span></div>
+    </div>
+    <div class="reload" onclick="location.reload();">&#10227;</div>
+    <div class="rules">
+        <span class="icon">!</span>
+        <span class="msg">Game Rules : If you got 3 horizontal or vertical or cross blocks, Then you had won.</span>
+    </div>
+    <script>
+        let table = document.querySelectorAll('.container div'),
+        player = document.querySelectorAll('.player'),
+        winner = document.querySelector('.winner span');
+
+        table.forEach(block => {
+            block.onclick = e => {
+                block.textContent != '' ? e.preventDefault() : 
+                player.forEach(one => {
+                    if (one.classList.contains('toggle')) {
+                        block.textContent = one.textContent;
+                        winner.textContent = one.textContent;
+                        if (one.textContent == 'X') {
+                            winner.style.color = 'red';
+                        } else {
+                            winner.style.color = 'blue';
+                        }
+                        one.classList.remove('toggle');
+                    } else {
+                        one.classList.add('toggle');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
