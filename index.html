@@ -9,6 +9,7 @@
     <style>
         body {
             background: aliceblue;
+
             & .body {
                 position: absolute;
                 top: 50%;
@@ -18,12 +19,14 @@
                 flex-direction: column;
             }
         }
+
         .container {
             height: 180px;
             width: 180px;
             display: flex;
             flex-wrap: wrap;
             margin-block: 20px;
+
             & div {
                 background-color: cadetblue;
                 width: 50px;
@@ -34,23 +37,29 @@
                 align-items: center;
                 cursor: pointer;
                 font-family: sans-serif;
+
                 &:hover {
                     opacity: 0.7;
                 }
+
                 &:first-child {
                     border-top-left-radius: 10px;
                 }
+
                 &:nth-child(3) {
                     border-top-right-radius: 10px;
                 }
+
                 &:nth-child(7) {
                     border-bottom-left-radius: 10px;
                 }
+
                 &:last-child {
                     border-bottom-right-radius: 10px;
                 }
             }
         }
+
         .reload {
             cursor: pointer;
             position: absolute;
@@ -60,26 +69,31 @@
             background-color: darkseagreen;
             border-radius: 50%;
             padding: 4px 4px 0 7px;
+
             &:hover {
                 transition: 0.5s;
                 transform: rotate(360deg);
             }
         }
+
         .rules {
             padding: 20px;
             margin: 20px;
             background-color: white;
             border-radius: 10px;
             width: fit-content;
+
             & .icon {
                 padding-inline: 6px;
                 border: 1px solid black;
                 border-radius: 50%;
             }
+
             & .msg {
                 display: none;
                 margin-left: 10px;
             }
+
             &:hover .msg {
                 display: inline;
             }
@@ -91,12 +105,21 @@
             background-color: white;
             border-radius: 10px;
         }
+
         .player {
             display: none;
         }
+
         .toggle {
             display: inline;
             font-weight: bold;
+        }
+
+        @media (max-width: 767px) {
+            .reload {
+                background-color: transparent;
+                padding: 0 0 9px;
+            }
         }
     </style>
 </head>
@@ -128,26 +151,26 @@
     </div>
     <script>
         let table = document.querySelectorAll('.container div'),
-        player = document.querySelectorAll('.player'),
-        winner = document.querySelector('.winner span');
+            player = document.querySelectorAll('.player'),
+            winner = document.querySelector('.winner span');
 
         table.forEach(block => {
             block.onclick = e => {
-                block.textContent != '' ? e.preventDefault() : 
-                player.forEach(one => {
-                    if (one.classList.contains('toggle')) {
-                        block.textContent = one.textContent;
-                        winner.textContent = one.textContent;
-                        if (one.textContent == 'X') {
-                            winner.style.color = 'red';
+                block.textContent != '' ? e.preventDefault() :
+                    player.forEach(one => {
+                        if (one.classList.contains('toggle')) {
+                            block.textContent = one.textContent;
+                            winner.textContent = one.textContent;
+                            if (one.textContent == 'X') {
+                                winner.style.color = 'red';
+                            } else {
+                                winner.style.color = 'blue';
+                            }
+                            one.classList.remove('toggle');
                         } else {
-                            winner.style.color = 'blue';
+                            one.classList.add('toggle');
                         }
-                        one.classList.remove('toggle');
-                    } else {
-                        one.classList.add('toggle');
-                    }
-                });
+                    });
             }
         });
     </script>
